@@ -25,4 +25,26 @@ package com.example.arithmeticapplication.leecode;
  * @date :2019/6/4 11:02
  */
 public class Num35 {
+
+    public static void main(String[] args) {
+        int i = searchRange(new int[]{1,3,5,6},0);
+        System.out.println("i = [" + i + "]");
+    }
+
+    //二分查找需要插入的位置
+    //如果没有匹配元素，left就是需要插入的位置
+    public static int searchRange(int[] nums, int target) {
+        int left = 0,right = nums.length-1;
+        while (left <= right){
+            int mid = left + (right -left)/2;
+            if(nums[mid] > target){
+                right = mid - 1;
+            }else if(nums[mid] < target){
+                left = mid +1;
+            }else{
+                return mid;
+            }
+        }
+        return left;
+    }
 }
