@@ -31,35 +31,55 @@ import java.util.List;
 public class Num54 {
 
     public static void main(String[] args) {
-        List<Integer> list = spiralOrder(new int[][]{{1,2,3},{4,5,6},{7,8,9,},{10,11,12}});
+        List<Integer> list = spiralOrder(new int[][]{{1,2,3,4,5,6,7,8,9,10},{11,12,13,14,15,16,17,18,19,20}});
         System.out.println("args = [" + list.size() + "]");
     }
 
     public static List<Integer> spiralOrder(int[][] matrix) {
         List<Integer> list = new ArrayList<>();
+        if(matrix.length == 0){
+            return list;
+        }
         int level = 0;
-        int row = matrix.length;
-        int column = matrix[0].length;
-        while (level <= column/2){
-            if(level == column-level-1){
-                list.add(matrix[level][level]);
-            }else{
-                for (int i = level; i < column-level-1; i++) {
-                    list.add(matrix[level][i]);
+        int row = matrix.length;//行数
+        int column = matrix[0].length;//列数
+        int left = 0,right = column-1;
+        while (left <= right && left <= row - left - 1){
+            if(left == right){
+                for (int i = left; i < row-left; i++) {
+                    list.add(matrix[i][left]);
                 }
-            }
-            for (int i = level; i < row-level-1; i++) {
-                list.add(matrix[i][column-level-1]);
-            }
-
-            for (int i = column - level -1; i > level; i--) {
-                list.add(matrix[row-level-1][i]);
+                left++;
+                right--;
+                break;
             }
 
-            for (int i = row - level - 1; i > level ; i--) {
-                list.add(matrix[i][level]);
+            if(left == row-left - 1){
+                for (int i = left; i <= right; i++) {
+                    list.add(matrix[left][i]);
+                }
+                left++;
+                right--;
+                break;
             }
-            level++;
+
+            for (int i = left; i < right; i++) {
+                list.add(matrix[left][i]);
+            }
+
+            for (int i = left; i < row-left-1; i++) {
+                list.add(matrix[i][right]);
+            }
+
+            for (int i = right; i > left; i--) {
+                list.add(matrix[row-left-1][i]);
+            }
+
+            for (int i = row-left-1; i > left; i--) {
+                list.add(matrix[i][left]);
+            }
+            left++;
+            right--;
         }
         return list;
     }
