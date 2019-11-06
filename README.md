@@ -1,2 +1,3 @@
 # ArithmeticApplication
-刷算法题真爽！一直刷一直爽
+leet code一天一题
+
