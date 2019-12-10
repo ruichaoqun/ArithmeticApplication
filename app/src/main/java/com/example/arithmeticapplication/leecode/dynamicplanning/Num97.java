@@ -61,7 +61,7 @@ public class Num97 {
                 } else if (i == 0) {
                     arr[i][j] = arr[i][j - 1] && s2.charAt(j - 1) == s3.charAt(i + j - 1);
                 } else if (j == 0) {
-                    arr[i][j] = arr[i - 1][j] && s1.charAt(i - 1) == s3.charAt(i + j - 1);
+                    arr[i][j] = arr[i - 1][+j] && s1.charAt(i - 1) == s3.charAt(i + j - 1);
                 } else {
                     arr[i][j] = (arr[i][j - 1] && s2.charAt(j - 1) == s3.charAt(i + j - 1)) || (arr[i - 1][j] && s1.charAt(i - 1) == s3.charAt(i + j - 1));
                 }
