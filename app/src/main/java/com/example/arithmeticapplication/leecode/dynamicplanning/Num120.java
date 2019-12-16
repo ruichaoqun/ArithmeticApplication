@@ -49,7 +49,7 @@ public class Num120 {
         list4.add(8);
         list4.add(3);
         listList.add(list4);
-        System.out.println("args = [" + num120.minimumTotal3(listList) + "]");
+        System.out.println("args = [" + num120.minimumTotal2(listList) + "]");
 
     }
 
@@ -115,7 +115,7 @@ public class Num120 {
         return stack(triangle,0,0);
     }
 
-    //递归,超时K
+    //递归
     public int stack(List<List<Integer>> triangle,int row,int col) {
         if(row == triangle.size() -1){
             return triangle.get(row).get(col);
