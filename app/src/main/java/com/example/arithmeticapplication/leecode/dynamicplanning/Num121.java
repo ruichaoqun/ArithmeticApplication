@@ -22,15 +22,38 @@ package com.example.arithmeticapplication.leecode.dynamicplanning;
  * 解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。
  */
 public class Num121 {
+
+    public static void main(String[] args) {
+        System.out.printf(""+new Num121().maxProfit1(new int[]{7,1,5,3,6,4}));
+    }
+
+    /**
+     * dp[k,0] 定义为第k天的最大利润，
+     * dp[k,0] = max(dp[k-1,0],dp[k-1,1] + p[k])
+     * @param prices
+     * @return
+     */
     public int maxProfit(int[] prices) {
-        int minP = Integer.MAX_VALUE;
+        if(prices.length <= 1){
+            return 0;
+        }
+        int dpk0 = 0;
+        int dpk1 = -prices[0];
+        for (int i = 1; i < prices.length; i++) {
+            dpk0 = Math.max(dpk0,dpk1+prices[i]);
+            dpk1 = Math.max(dpk1,-prices[i]);
+        }
+        return dpk0;
+    }
+
+    public int maxProfit1(int[] prices) {
         int profit = 0;
+        int minp = Integer.MAX_VALUE;
         for (int i = 0; i < prices.length; i++) {
-            if (minP > prices[i]) {
-                minP = prices[i];
-            } else {
-                profit = prices[i] - minP > profit ? prices[i] - minP : profit;
+            if(minp > prices[i]){
+                minp = prices[i];
             }
+            profit = Math.max(profit,prices[i] - minp);
         }
         return profit;
     }

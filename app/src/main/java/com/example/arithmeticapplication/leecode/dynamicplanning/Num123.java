@@ -35,7 +35,7 @@ public class Num123 {
     public static void main(String[] args) {
         Num123 num123 = new Num123();
         int[] prices = new int[]{7,6,4,3,1};
-        System.out.println("args = [" + num123.maxProfit(prices) + "]");
+        System.out.println("args = [" + num123.maxProfit2(prices) + "]");
     }
 
 
@@ -64,4 +64,35 @@ public class Num123 {
         }
         return maxProfit;
     }
+
+    /**
+     *
+     * @param prices
+     * @return
+     */
+    public int maxProfit2(int[] prices) {
+        if(prices.length <= 1){
+            return 0;
+        }
+        int maxk = 2;
+        int[][][] dp = new int[prices.length][3][2];
+        for (int i = 0; i < prices.length; i++) {
+            for (int k = 0; k <= maxk; k++) {
+                if(i == 0){
+                    dp[i][k][0] = 0;
+                    dp[i][k][1] = -prices[i];
+                    continue;
+                }
+                if(k == 0){
+                    dp[i][k][0] = 0;
+                    dp[i][k][1] = Math.max(dp[i-1][k][1], - prices[i]);
+                }else{
+                    dp[i][k][0] = Math.max(dp[i-1][k][0],dp[i-1][k-1][1] + prices[i]);
+                    dp[i][k][1] = Math.max(dp[i-1][k][1],dp[i-1][k][0] - prices[i]);
+                }
+            }
+        }
+        return dp[prices.length-1][2][0];
+    }
+
 }
