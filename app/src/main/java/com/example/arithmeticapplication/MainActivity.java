@@ -26,13 +26,11 @@ import io.reactivex.schedulers.Schedulers;
 public class MainActivity extends AppCompatActivity {
     private TextView mTextView;
     private Random mRandom = new Random();
-    ChannelView channelView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        channelView = findViewById(R.id.view);
     }
 
     @Override
@@ -91,32 +89,5 @@ public class MainActivity extends AppCompatActivity {
                 emitter.onComplete();
             }
         });
-    }
-
-    public void Click(View view) {
-        Observable.interval(20,TimeUnit.MILLISECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Long>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Long aLong) {
-                        channelView.addData(mRandom.nextFloat()*180);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
     }
 }
