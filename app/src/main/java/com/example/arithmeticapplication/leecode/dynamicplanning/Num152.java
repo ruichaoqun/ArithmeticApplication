@@ -20,23 +20,29 @@ package com.example.arithmeticapplication.leecode.dynamicplanning;
 public class Num152 {
 
     public int maxProduct(int[] nums) {
-        int[] arr = new int[nums.length];
-        arr[0] = nums[0];
+        int[] max = new int[nums.length];
+        int[] min = new int[nums.length];
+        max[0] = nums[0];
+        min[0] = nums[0];
+        int result = nums[0];
         for (int i = 1; i < nums.length; i++) {
-            arr[i] = Math.max(arr[i-1],caculateMaxWithIndex(i,nums));
+            max[i] = Math.max(min[i-1]*nums[i],Math.max(nums[i],max[i-1]*nums[i]));
+            min[i] = Math.min(min[i-1]*nums[i],Math.min(nums[i],max[i-1]*nums[i]));
+            result = Math.max(result,max[i]);
         }
-        return arr[arr.length-1];
+        return result;
     }
 
-    private int caculateMaxWithIndex(int i, int[] nums) {
-        int count = nums[i];
-        int maxCount = count;
-        for (int j = i-1; j >= 0; j--) {
-            count = count*nums[j];
-            if(count > maxCount){
-                maxCount = count;
-            }
+    public int maxProduct1(int[] nums) {
+        int max = nums[0];
+        int min = nums[0];
+        int result = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            int mx = max,mi =  min;
+            max = Math.max(mi*nums[i],Math.max(nums[i],mx*nums[i]));
+            min = Math.min(mi*nums[i],Math.min(nums[i],mx*nums[i]));
+            result = Math.max(result,max);
         }
-        return maxCount;
+        return result;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.arithmeticapplication.leecode;
+package com.example.arithmeticapplication.leecode.dynamicplanning;
 
 /**
  * @author Rui Chaoqun
@@ -24,19 +24,18 @@ public class Num53 {
         System.out.println("i = [" + i + "]");
     }
 
+    /**
+     *  dp[i] = max[dp[i-1]+num[i],num[i]]
+     *  result = max(dp)
+     * @param nums
+     * @return
+     */
     public static int maxSubArray(int[] nums) {
-        int sum = nums[0];
-        int max = sum;
+        int max = nums[0],result = nums[0];
         for (int i = 1; i < nums.length; i++) {
-            if(sum + nums[i] <= nums[i]){
-                sum = nums[i];
-            }else{
-                sum += nums[i];
-            }
-            if(sum > max){
-                max = sum;
-            }
+            max = Math.max(max+nums[i],nums[i]);
+            result = Math.max(result,max);
         }
-        return max;
+        return result;
     }
 }
