@@ -49,35 +49,30 @@ public class Num120 {
         list4.add(8);
         list4.add(3);
         listList.add(list4);
-        System.out.println("args = [" + num120.minimumTotal2(listList) + "]");
+        System.out.println("args = [" + num120.minimumTotal(listList) + "]");
 
     }
 
 
     public int minimumTotal(List<List<Integer>> triangle) {
-        int min = Integer.MAX_VALUE;
+        if(triangle == null || triangle.size() == 0){
+            return 0;
+        }
         int[] dp = new int[triangle.size()];
-        int[] temp = new int[triangle.size()];
-        for (int i = 0; i < triangle.size(); i++) {
-            List<Integer> list = triangle.get(i);
-            for (int j = 0; j < list.size(); j++) {
+        for (int i = 0; i < dp.length; i++) {
+            for (int j = i; j >= 0; j--) {
                 if(j == 0){
-                    temp[j] = dp[j] + list.get(j);
-                }else if(j == list.size()-1){
-                    temp[j] = dp[j-1] + list.get(j);
-                }else{
-                    temp[j] = Math.min(dp[j-1],dp[j]) + list.get(j);
+                    dp[j] = dp[j]+triangle.get(i).get(j);
+                }else if(j == i){
+                    dp[j] = dp[j-1]+triangle.get(i).get(j);
+                }else {
+                    dp[j] = Math.min(dp[j],dp[j-1])+triangle.get(i).get(j);
                 }
             }
-            int[] t = temp;
-            temp = dp;
-            dp = t;
         }
-
+        int min = Integer.MAX_VALUE;
         for (int i = 0; i < dp.length; i++) {
-            if(min > dp[i]){
-                min = dp[i];
-            }
+            min = Math.min(min,dp[i]);
         }
         return min;
     }
