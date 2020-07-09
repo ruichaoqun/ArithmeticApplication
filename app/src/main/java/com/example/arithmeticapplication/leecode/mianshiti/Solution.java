@@ -28,6 +28,14 @@ import java.util.Map;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class Solution {
+    /**
+     * 动态规划  设dp[i]为字符串第i个字符的未识别的字符数，
+     * 从i向前遍历，每次拿到的从j到i的字符串如果在字典里，就是dp[j-1],如果不在，就是dp[j-1]+i-j+1
+     * 最后算出最小的那个值就是dp[i]的值
+     * @param dictionary
+     * @param sentence
+     * @return
+     */
     public int respace(String[] dictionary, String sentence) {
         if(sentence.length() == 0){
             return 0;
